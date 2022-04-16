@@ -10,8 +10,6 @@ function App() {
   const [triesLeft, setTriesLeft] = useState(MAX_TRIES)
   const wordOfTheDay = getWordOfTheDay()
 
-  console.log(wordOfTheDay)
-
   function handleChange(e) {
     setGuess(e.target.value)
   }
@@ -36,7 +34,8 @@ function App() {
       document.getElementById("guessInputField").disabled = true
       alert("Perdu...")
     }
-  }, [triesLeft, wordOfTheDay, guess])
+    // eslint-disable-next-line
+  }, [triesLeft])
 
   return (
     <div className="App">

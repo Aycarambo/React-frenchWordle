@@ -8,7 +8,8 @@ function Line({ value, maxLength, validate = false, word }) {
     if (validate) {
       setValidatedValue(value)
     }
-  }, [validate, value])
+    // eslint-disable-next-line
+  }, [validate])
   return (
     <div className="tile-container">
       {Array.from(Array(maxLength).keys()).map((index) => (
