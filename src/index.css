@@ -17,20 +17,30 @@ code {
   display: flex;
 }
 .tile {
+  color:bisque;
   margin: 5px;
   border: 2px solid grey;
   width: 40px;
   height: 40px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.tile.letter-not-in-word{
-  background: red;
+.tile.validated{
+  width: 44px;
+  height: 44px;
+  border: 0;
 }
 
-.tile.letter-in-wrong-position{
-  background: yellow;
+.tile.validated.letter-not-in-word{
+  background: rgba(128, 128, 128, 0.333);
 }
 
-.tile.letter-in-correct-position{
-  background: green;
+.tile.validated.letter-in-wrong-position{
+  background: rgba(255, 255, 0, 0.5);
+}
+
+.tile.validated.letter-in-correct-position{
+  background: rgba(35, 220, 60, 0.85);
 }

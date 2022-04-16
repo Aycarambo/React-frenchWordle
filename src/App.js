@@ -1,21 +1,14 @@
 import "./App.css"
 import React, { useState, useEffect } from "react"
 import Grid from "./components/Grid"
-import words from "an-array-of-french-words"
-import dayjs from "dayjs"
-import seedrandom from "seedrandom"
+import { getWordOfTheDay, isValidWord } from "./utils/word"
 
 const MAX_TRIES = 6
 
 function App() {
   const [guess, setGuess] = useState("")
   const [triesLeft, setTriesLeft] = useState(MAX_TRIES)
-  const date = dayjs().format("YYYY-MM-DD")
-  const filteredWords = words
-    .filter((word) => !/[^a-z]/gi.test(word))
-    .filter((word) => word.length > 4 && word.length < 9)
-  var myrng = new seedrandom(date)
-  const wordOfTheDay = filteredWords[Math.round(myrng() * filteredWords.length)]
+  const wordOfTheDay = getWordOfTheDay
 
   console.log(wordOfTheDay)
 
@@ -26,8 +19,8 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault() //prevent refreshing on submit
 
-    if (guess.length == wordOfTheDay.length && !/[^a-z]/gi.test(guess)) {
-      if (filteredWords.includes(guess)) {
+    if (guess.length === wordOfTheDay.length && !/[^a-z]/gi.test(guess)) {
+      if (isValidWord(guess)) {
         setTriesLeft(triesLeft - 1)
       } else {
         alert("Ce mot n'est pas dans le dictionnaire.")
@@ -37,7 +30,13 @@ function App() {
   }
   useEffect(() => {
     setGuess("")
-  }, [triesLeft])
+    if (guess === wordOfTheDay) {
+      document.getElementById("guessInputField").disabled = true
+    } else if (triesLeft === 0) {
+      document.getElementById("guessInputField").disabled = true
+      alert("Perdu...")
+    }
+  }, [triesLeft, wordOfTheDay, guess])
 
   return (
     <div className="App">
@@ -53,8 +52,10 @@ function App() {
             />
           </div>
           <input
+            autoCapitalize="none"
+            autoCorrect="off"
             maxLength={wordOfTheDay.length}
-            id="guess"
+            id="guessInputField"
             onChange={handleChange}
             value={guess}
             pattern="[a-z]*"

@@ -6,19 +6,19 @@ function Line({ value, maxLength, validate = false, word }) {
 
   useEffect(() => {
     if (validate) {
-      console.log(value)
       setValidatedValue(value)
     }
-  }, [validate])
+  }, [validate, value])
   return (
     <div className="tile-container">
       {Array.from(Array(maxLength).keys()).map((index) => (
         <div
           className={clsx("tile", {
+            validated: validate,
             "letter-in-wrong-position":
               validatedValue && word.includes(validatedValue[index]),
             "letter-in-correct-position":
-              validatedValue && word[index] == validatedValue[index],
+              validatedValue && word[index] === validatedValue[index],
             "letter-not-in-word":
               validatedValue && !word.includes(validatedValue[index])
           })}
