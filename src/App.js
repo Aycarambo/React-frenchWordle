@@ -8,7 +8,7 @@ const MAX_TRIES = 6
 function App() {
   const [guess, setGuess] = useState("")
   const [triesLeft, setTriesLeft] = useState(MAX_TRIES)
-  const wordOfTheDay = getWordOfTheDay
+  const wordOfTheDay = getWordOfTheDay()
 
   console.log(wordOfTheDay)
 
