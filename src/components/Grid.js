@@ -1,7 +1,6 @@
 import Line from "./Line"
 
 function Grid({ lines, lineToValidate, value, maxLength, word }) {
-  console.log(lineToValidate)
   return (
     <div>
       {Array.from(Array(lines).keys()).map((index) => (
