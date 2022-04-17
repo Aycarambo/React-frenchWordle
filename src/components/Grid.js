@@ -1,14 +1,14 @@
 import Line from "./Line"
 
-function Grid({ lines, lineToValidate, value, maxLength, word }) {
+function Grid({ state, lineCount, lineToValidate, value, maxLength, word }) {
   return (
-    <div>
-      {Array.from(Array(lines).keys()).map((index) => (
+    <div className="grid">
+      {Array.from(Array(lineCount).keys()).map((index) => (
         <Line
           key={index}
-          value={index <= lineToValidate ? value : ""}
+          value={state[index] ? state[index] : index <= lineToValidate ? value : ""}
           maxLength={maxLength}
-          validate={index < lineToValidate}
+          validate={state[index] ? true : index < lineToValidate}
           word={word}
         />
       ))}

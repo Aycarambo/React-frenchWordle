@@ -12,10 +12,15 @@ code {
     monospace;
 }
 
+.grid{
+  border: 0;
+  margin-bottom: 40px;
+}
 
-.tile-container {
+.line {
   display: flex;
 }
+
 .tile {
   color:bisque;
   margin: 5px;
@@ -28,9 +33,9 @@ code {
 }
 
 .tile.validated{
-  width: 44px;
-  height: 44px;
-  border: 0;
+  /*width: 44px;
+  height: 44px;*/
+  border-color: transparent;
 }
 
 .tile.validated.letter-not-in-word{
@@ -43,4 +48,35 @@ code {
 
 .tile.validated.letter-in-correct-position{
   background: rgba(35, 220, 60, 0.85);
+}
+
+.btn-primary{
+  background-color: grey;
+  border: 0;
+  height: 27px;
+}
+
+.input-primary{
+  border: 0;
+  height: 25px;
+}
+
+.primary-message{
+  min-height: 67px;
+}
+
+.helper-message{
+  min-height: 33px;
+}
+
+@media (max-width: 760px){
+  .hidden-on-mobile{
+    display: none;
+  }
+
+  .tile{
+    font-size: 16px;
+    width: 25px;
+    height: 25px;
+  }
 }

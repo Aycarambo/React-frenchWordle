@@ -43,7 +43,7 @@ function Line({ value: guess, maxLength, validate = false, word: answer }) {
     // eslint-disable-next-line
   }, [validate])
   return (
-    <div className="tile-container">
+    <div className="line">
       {Array.from(Array(maxLength).keys()).map((index) => {
         if (validatedGuess) {
           const letter = validatedGuess[index]
