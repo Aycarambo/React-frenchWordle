@@ -13,9 +13,12 @@ function App() {
   const wordOfTheDay = getWordOfTheDay()
   const [guess, setGuess] = useState("")
   const [isInputDisabled, setIsInputDisabled] = useState(true)
-  if (isInputDisabled && (!initialState || initialState.grid?.[initialState.grid.length - 1] !== wordOfTheDay)) {
-    setIsInputDisabled(false)
-  }
+  useEffect(() => {
+    if (isInputDisabled && (!initialState || initialState.grid?.[initialState.grid.length - 1] !== wordOfTheDay)) {
+      setIsInputDisabled(false)
+    }
+    // eslint-disable-next-line
+  }, [])
 
   const [gridState, setGridState] = useState(initialState?.grid || [])
   const [triesLeft, setTriesLeft] = useState(MAX_TRIES - gridState.length)
@@ -50,7 +53,6 @@ function App() {
       } else {
         setHelperMessage("Ce mot n'est pas dans le dictionnaire.")
       }
-    } else {
     }
   }
 
@@ -60,7 +62,7 @@ function App() {
       setIsInputDisabled(true)
       setPrimaryMessage("Gagné !")
       pause() //timer
-    } else if (triesLeft === 0) {
+    } else if (triesLeft <= 0) {
       setIsInputDisabled(true)
       setPrimaryMessage("Perdu...")
       pause() //timer
