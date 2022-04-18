@@ -5,6 +5,7 @@ import { getWordOfTheDay, isValidWord } from "./utils/word"
 import { useTimer } from "use-timer"
 import intToTime from "./utils/formatTime"
 import useLocalStorage from "./hooks/localStorage"
+import UserStatistics from "./components/UserStatistics"
 
 const MAX_TRIES = 6
 
@@ -75,6 +76,7 @@ function App() {
       <header className="App-header">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
+            <UserStatistics />
             <h1 className="primary-message">{primaryMessage}</h1>
             <h2>{intToTime(time)}</h2>
             <Grid

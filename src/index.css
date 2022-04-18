@@ -80,3 +80,12 @@ code {
     height: 25px;
   }
 }
+
+.modal{
+  width: 60vw;
+  height: 80vh;
+  background: red;
+  position: absolute;
+  top: 10vh;
+  left: 20vw;
+}
