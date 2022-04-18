@@ -5,8 +5,10 @@ import { getWordOfTheDay, isValidWord } from "./utils/word"
 import { useTimer } from "use-timer"
 import intToTime from "./utils/formatTime"
 import useLocalStorage from "./hooks/localStorage"
+import dayjs from "dayjs"
 
 const MAX_TRIES = 6
+const TODAY = dayjs().format("YYYY-MM-DD")
 
 function App() {
   const [initialState, setInitialState] = useLocalStorage("state", {})
@@ -26,7 +28,7 @@ function App() {
     autostart: !!initialState.time && triesLeft > 0,
     onTimeUpdate: (time) => {
       if (time > 0) {
-        setInitialState({ ...initialState, time })
+        setInitialState({ [TODAY]: { ...initialState[TODAY], time } })
       }
     },
     initialTime: initialState?.time || 0
@@ -49,7 +51,7 @@ function App() {
       if (isValidWord(guess)) {
         setTriesLeft(triesLeft - 1)
         setGridState([...gridState, guess])
-        setInitialState({ ...initialState, grid: [...gridState, guess] })
+        setInitialState({ [TODAY]: { ...initialState[TODAY], grid: [...gridState, guess] } })
       } else {
         setHelperMessage("Ce mot n'est pas dans le dictionnaire.")
       }
