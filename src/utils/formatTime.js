@@ -1,7 +1,8 @@
 function intToTime(number) {
   const seconds = (number % 60).toLocaleString("fr-FR", {
     minimumIntegerDigits: 2,
-    useGrouping: false
+    useGrouping: false,
+    maximumFractionDigits: 0
   })
   number = Math.floor(number / 60)
 

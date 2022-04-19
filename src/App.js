@@ -6,15 +6,26 @@ import { useTimer } from "use-timer"
 import intToTime from "./utils/formatTime"
 import useLocalStorage from "./hooks/localStorage"
 import dayjs from "dayjs"
+import UserStatistics from "./components/UserStatistics"
 
 const MAX_TRIES = 6
 const TODAY = dayjs().format("YYYY-MM-DD")
 
+/*ajouter une croix sur le modal :
+passer au modal une fonction onClose() depuis l'app
+relier la croix a onClose()
+onClose(){
+  disableModal
+}
+*/
 function App() {
   const [initialState, setInitialState] = useLocalStorage("state", {})
   const wordOfTheDay = getWordOfTheDay()
   const [guess, setGuess] = useState("")
   const [isInputDisabled, setIsInputDisabled] = useState(true)
+  const [isStatsDisabled, setIsStatsDisabled] = useState(true)
+
+  console.log("refresh")
   useEffect(() => {
     if (isInputDisabled && (!initialState || initialState.grid?.[initialState.grid.length - 1] !== wordOfTheDay)) {
       setIsInputDisabled(false)
@@ -22,16 +33,17 @@ function App() {
     // eslint-disable-next-line
   }, [])
 
-  const [gridState, setGridState] = useState(initialState?.grid || [])
+  console.log(initialState)
+  const [gridState, setGridState] = useState(initialState?.[TODAY]?.grid || [])
   const [triesLeft, setTriesLeft] = useState(MAX_TRIES - gridState.length)
   const { time, start, pause } = useTimer({
-    autostart: !!initialState.time && triesLeft > 0,
+    autostart: !!initialState?.[TODAY]?.time && triesLeft > 0,
     onTimeUpdate: (time) => {
       if (time > 0) {
         setInitialState({ [TODAY]: { ...initialState[TODAY], time } })
       }
     },
-    initialTime: initialState?.time || 0
+    initialTime: initialState?.[TODAY]?.time || 0
   })
   const [primaryMessage, setPrimaryMessage] = useState("")
   const [helperMessage, setHelperMessage] = useState("")
@@ -58,14 +70,20 @@ function App() {
     }
   }
 
+  function handleStatsModalClose() {
+    setIsStatsDisabled(true)
+  }
+
   useEffect(() => {
     setGuess("")
-    if (guess === wordOfTheDay || initialState.grid?.[initialState.grid.length - 1] === wordOfTheDay) {
+    if (guess === wordOfTheDay || initialState?.[TODAY].grid[initialState?.[TODAY]?.grid.length - 1] === wordOfTheDay) {
       setIsInputDisabled(true)
+      setIsStatsDisabled(false)
       setPrimaryMessage("Gagné !")
       pause() //timer
     } else if (triesLeft <= 0) {
       setIsInputDisabled(true)
+      setIsStatsDisabled(false)
       setPrimaryMessage("Perdu...")
       pause() //timer
     }
@@ -75,6 +93,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        {!isStatsDisabled && (
+          <UserStatistics
+            onClose={handleStatsModalClose}
+            word={wordOfTheDay}
+            time={time}
+            tryCount={MAX_TRIES - triesLeft}
+          />
+        )}
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
             <h1 className="primary-message">{primaryMessage}</h1>
