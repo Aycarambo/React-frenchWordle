@@ -81,11 +81,58 @@ code {
   }
 }
 
+@keyframes zero-to-hundred-opacity {
+  from {opacity: 0;}
+  to{opacity: 100%}
+}
+
 .modal{
+  animation-name: zero-to-hundred-opacity;
+  animation-duration: 0.5s;
+  position: absolute;
   width: 40vw;
   height: 80vh;
-  background: rgba(35, 220, 60, 0.95);
-  position: absolute;
   top: 10vh;
   left: 30vw;
+  background: rgba(35, 220, 60, 0.98);
 }
+
+.hidden{
+  display: none;
+}
+
+.score-board-title{
+  font-size: larger;
+  text-align: center;
+}
+
+.score-board{
+  font-size: large;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  top: 40%;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-close{
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.player-row{
+  background-color: red;
+}
+
+.helper-username{
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  font-size: medium;
+}
+

@@ -1,5 +1,6 @@
 import seedrandom from "seedrandom"
 import filteredWords from "./cleanWords.json"
+import possibleWords from "./possibleWords.json"
 import dayjs from "dayjs"
 
 function getWordOfTheDay() {
@@ -10,6 +11,6 @@ function getWordOfTheDay() {
 }
 
 function isValidWord(word) {
-  return filteredWords.includes(word)
+  return possibleWords.includes(word)
 }
 export { getWordOfTheDay, isValidWord }

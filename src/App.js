@@ -1,12 +1,13 @@
 import "./App.css"
 import React, { useState, useEffect } from "react"
 import Grid from "./components/Grid"
-import { getWordOfTheDay, isValidWord } from "./utils/word"
+import { getWordOfTheDay, isValidWord } from "./utils/getWordOfTheDay"
 import { useTimer } from "use-timer"
 import intToTime from "./utils/formatTime"
 import useLocalStorage from "./hooks/localStorage"
 import dayjs from "dayjs"
 import UserStatistics from "./components/UserStatistics"
+import clsx from "clsx"
 
 const MAX_TRIES = 6
 const TODAY = dayjs().format("YYYY-MM-DD")
@@ -24,16 +25,16 @@ function App() {
   const [guess, setGuess] = useState("")
   const [isInputDisabled, setIsInputDisabled] = useState(true)
   const [isStatsDisabled, setIsStatsDisabled] = useState(true)
+  const isGameEnded =
+    guess === wordOfTheDay || initialState?.[TODAY]?.grid?.[initialState?.[TODAY]?.grid?.length - 1] === wordOfTheDay
 
-  console.log("refresh")
+  console.log("refresh", isGameEnded)
   useEffect(() => {
-    if (isInputDisabled && (!initialState || initialState.grid?.[initialState.grid.length - 1] !== wordOfTheDay)) {
+    if (isInputDisabled && (!initialState || initialState.grid?.[initialState?.grid?.length - 1] !== wordOfTheDay)) {
       setIsInputDisabled(false)
     }
     // eslint-disable-next-line
   }, [])
-
-  console.log(initialState)
   const [gridState, setGridState] = useState(initialState?.[TODAY]?.grid || [])
   const [triesLeft, setTriesLeft] = useState(MAX_TRIES - gridState.length)
   const { time, start, pause } = useTimer({
@@ -70,13 +71,17 @@ function App() {
     }
   }
 
-  function handleStatsModalClose() {
+  function closeStatsModal() {
     setIsStatsDisabled(true)
+  }
+
+  function openStatsModal() {
+    setIsStatsDisabled(false)
   }
 
   useEffect(() => {
     setGuess("")
-    if (guess === wordOfTheDay || initialState?.[TODAY].grid[initialState?.[TODAY]?.grid.length - 1] === wordOfTheDay) {
+    if (isGameEnded) {
       setIsInputDisabled(true)
       setIsStatsDisabled(false)
       setPrimaryMessage("Gagné !")
@@ -93,14 +98,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {!isStatsDisabled && (
+        <button onClick={openStatsModal} type="button">
+          Statistiques
+        </button>
+
+        <div className={clsx({ hidden: isStatsDisabled })}>
           <UserStatistics
-            onClose={handleStatsModalClose}
+            isGameEnded={isGameEnded}
+            onClose={closeStatsModal}
             word={wordOfTheDay}
             time={time}
             tryCount={MAX_TRIES - triesLeft}
           />
-        )}
+        </div>
+
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
             <h1 className="primary-message">{primaryMessage}</h1>
