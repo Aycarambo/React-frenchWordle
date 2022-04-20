@@ -102,6 +102,9 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
     ])
   }
 
+  console.log(stats)
+  console.log(avg(stats, "try_count").toFixed(1))
+
   const avgTryCount = avg(endGameStats, "try_count").toFixed(1)
   const avgTime = intToTime(avg(endGameStats, "time"))
 
