@@ -13,9 +13,11 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
   const [hasUserPlayed] = useState(!isGameEnded)
   const [isScoreBoardShown, setIsScoreBoardShown] = useState(!!userName)
 
+  /*
   const [playerIndex, setPlayerIndex] = useState(0)
   const [player, setPlayer] = useState({})
   const [playerScore, setPlayerScore] = useState(<></>)
+  */
 
   useEffect(() => {
     const getStats = async () => {
@@ -86,7 +88,7 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
           </li>
         )
       })}
-      {playerIndex > 10 ? playerScore : <></>}
+      {/*playerIndex > 10 ? playerScore : <></>*/}
     </ol>
   )
 
