@@ -77,6 +77,7 @@ code {
   height: 80vh;
   top: 10vh;
   left: 30vw;
+  overflow-y: auto;
   background: rgba(35, 220, 60, 0.98);
 }
 
@@ -115,9 +116,8 @@ code {
 .score-board{
   font-size: large;
   margin: 0;
-  position: absolute;
-  bottom: 0;
-  top: 40%;
+  padding-right: 30px;
+  margin-bottom: 40px;
   box-sizing: border-box;
   width: 100%;
   overflow-y: auto;
@@ -142,3 +142,6 @@ code {
   font-size: medium;
 }
 
+.li-no-index{
+  list-style: none;
+}

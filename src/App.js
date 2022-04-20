@@ -28,7 +28,7 @@ function App() {
   const isGameEnded =
     guess === wordOfTheDay || initialState?.[TODAY]?.grid?.[initialState?.[TODAY]?.grid?.length - 1] === wordOfTheDay
 
-  console.log("refresh", isGameEnded)
+  console.log("refresh")
   useEffect(() => {
     if (isInputDisabled && (!initialState || initialState.grid?.[initialState?.grid?.length - 1] !== wordOfTheDay)) {
       setIsInputDisabled(false)

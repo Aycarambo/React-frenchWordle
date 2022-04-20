@@ -13,11 +13,7 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
   const [hasUserPlayed] = useState(!isGameEnded)
   const [isScoreBoardShown, setIsScoreBoardShown] = useState(!!userName)
 
-  /*
   const [playerIndex, setPlayerIndex] = useState(0)
-  const [player, setPlayer] = useState({})
-  const [playerScore, setPlayerScore] = useState(<></>)
-  */
 
   useEffect(() => {
     const getStats = async () => {
@@ -49,27 +45,14 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
         try_count: tryCount,
         time,
         word,
-        created_at: new Date()
+        created_at: new Date(),
+        position: playerIndex
       })
     }
+    setPlayerIndex(playerIndex)
     setEndGameStats(endGameStats)
     // eslint-disable-next-line
   }, [JSON.stringify(stats), isGameEnded, tryCount])
-
-  /*
-  useEffect(() => {
-    if (!!endGameStats) {
-      setPlayerIndex(endGameStats.findIndex((row) => row.id === "USER"))
-      console.log(playerIndex)
-      setPlayer(endGameStats[playerIndex])
-      setPlayerScore(
-        <li value={playerIndex} key={player.id} className="USER">
-          {player.user_name} : {player.try_count} essais [{intToTime(player.time)}]
-        </li>
-      )
-    }
-  }, [endGameStats])
-  */
 
   const bestTenPlayers = (
     <ol className="score-board">
@@ -88,7 +71,25 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
           </li>
         )
       })}
-      {/*playerIndex > 10 ? playerScore : <></>*/}
+      {playerIndex >= 10 && (
+        <>
+          {playerIndex > 10 && <li className="li-no-index">...</li>}
+          <li
+            value={playerIndex + 1}
+            key={endGameStats[playerIndex].id}
+            className={clsx({
+              "player-row":
+                endGameStats[playerIndex].id === "USER" ||
+                (endGameStats[playerIndex].user_name === userName &&
+                  endGameStats[playerIndex].time === time &&
+                  endGameStats[playerIndex].try_count === tryCount)
+            })}
+          >
+            {endGameStats[playerIndex].user_name} : {endGameStats[playerIndex].try_count} essais [
+            {intToTime(endGameStats[playerIndex].time)}]
+          </li>
+        </>
+      )}
     </ol>
   )
 
@@ -101,9 +102,6 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
       })
     ])
   }
-
-  console.log(stats)
-  console.log(avg(stats, "try_count").toFixed(1))
 
   const avgTryCount = avg(endGameStats, "try_count").toFixed(1)
   const avgTime = intToTime(avg(endGameStats, "time"))
