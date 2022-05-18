@@ -1,4 +1,5 @@
 # This project is inspired by [wordle](www.nytimes.com/games/wordle/index.html) and [sutom](https://sutom.nocle.fr/#)
+This game was made as an introduction for me to React.
 
 ## Welcome to frenchWordle. 
 The goal of the game is to guess the `word of the day` by trial and error.
@@ -11,4 +12,10 @@ Once you have have guessed the `word of the day` you can compare the number of t
 
 <img width="323" alt="Scoreboardpng" src="https://user-images.githubusercontent.com/103802467/169088036-eee6bd99-c022-42cc-88b1-d2a5c2316dfd.png">
 
-## Current version of the website is hosted at https://wordle-lucas.netlify.app/
+## Current version of the website is hosted [HERE](https://wordle-lucas.netlify.app/)
+https://wordle-lucas.netlify.app/
+
+## TODO:
+- Fix the [player's score not registering](https://github.com/Aycarambo/frenchWordle/issues/1) issue
+- Add an easy way for users to share their score on social media.
+- 
