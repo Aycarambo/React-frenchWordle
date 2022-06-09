@@ -1,70 +1,20 @@
-# Getting Started with Create React App
+# This project is inspired by [wordle](www.nytimes.com/games/wordle/index.html) and [sutom](https://sutom.nocle.fr/#)
+This game was made as an introduction for me to React.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Welcome to frenchWordle. 
+The goal of the game is to guess the `word of the day` by trial and error.
+When you enter a word, letters that are contained in the `word of the day` but aren't correctly placed are shown in yellow. Letters that are in the correct place are shown in green.
+ 
+<img width="372" alt="frenchWordle-correct-guess" src="https://user-images.githubusercontent.com/103802467/169088024-9f262413-2d36-42a3-b76b-6ed26583f619.png">
 
-## Available Scripts
 
-In the project directory, you can run:
+Once you have have guessed the `word of the day` you can compare the number of tries and the time it took you with everyone else in the scoreboard.
 
-### `npm start`
+<img width="323" alt="Scoreboardpng" src="https://user-images.githubusercontent.com/103802467/169088036-eee6bd99-c022-42cc-88b1-d2a5c2316dfd.png">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Current version of the website is hosted [HERE](https://wordle-lucas.netlify.app/)
+https://wordle-lucas.netlify.app/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## TODO:
+- Fix the [player's score not registering every time](https://github.com/Aycarambo/frenchWordle/issues/1)
+- Add an easy way for users to share their score on social media.
