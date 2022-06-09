@@ -1,18 +1,16 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.grid{
+.grid {
   border: 0;
   margin-bottom: 40px;
 }
@@ -22,54 +20,55 @@ code {
 }
 
 .tile {
-  color:bisque;
+  color: bisque;
   margin: 5px;
   border: 2px solid grey;
   width: 40px;
   height: 40px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.tile.validated{
+.tile.validated {
   /*width: 44px;
   height: 44px;*/
   border-color: transparent;
 }
 
-.tile.validated.letter-not-in-word{
+.tile.validated.letter-not-in-word {
   background: rgba(128, 128, 128, 0.333);
 }
 
-.tile.validated.letter-in-wrong-position{
+.tile.validated.letter-in-wrong-position {
   background: rgba(255, 255, 0, 0.5);
 }
 
-.tile.validated.letter-in-correct-position{
+.tile.validated.letter-in-correct-position {
   background: rgba(35, 220, 60, 0.85);
 }
 
-.btn-primary{
+.btn-primary {
   background-color: grey;
   border: 0;
   height: 27px;
 }
 
-.input-primary{
+.input-primary {
   border: 0;
   height: 25px;
 }
 
-.primary-message{
+.primary-message {
   min-height: 67px;
 }
 
-.helper-message{
+.helper-message {
   min-height: 33px;
+  color: cornflowerblue;
 }
 
-.modal{
+.modal {
   animation-name: zero-to-hundred-opacity;
   animation-duration: 0.5s;
   position: absolute;
@@ -81,39 +80,41 @@ code {
   background: rgba(35, 220, 60, 0.98);
 }
 
-@media (max-width: 760px){
-  .hidden-on-mobile{
+@media (max-width: 760px) {
+  .hidden-on-mobile {
     display: none;
   }
 
-  .tile{
+  .tile {
     font-size: 16px;
     width: 25px;
     height: 25px;
   }
-  .modal{
+  .modal {
     width: 80vw;
     left: 10vw;
   }
 }
 
 @keyframes zero-to-hundred-opacity {
-  from {opacity: 0;}
-  to{opacity: 100%}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
 }
 
-
-
-.hidden{
+.hidden {
   display: none;
 }
 
-.score-board-title{
+.score-board-title {
   font-size: larger;
   text-align: center;
 }
 
-.score-board{
+.score-board {
   font-size: large;
   margin: 0;
   padding-right: 30px;
@@ -125,23 +126,23 @@ code {
   flex-direction: column;
 }
 
-.btn-close{
+.btn-close {
   cursor: pointer;
   position: absolute;
   right: 10px;
   top: 10px;
 }
 
-.player-row{
+.player-row {
   background-color: red;
 }
 
-.helper-username{
+.helper-username {
   color: rgba(255, 255, 255, 0.75);
   margin: 0;
   font-size: medium;
 }
 
-.li-no-index{
+.li-no-index {
   list-style: none;
 }

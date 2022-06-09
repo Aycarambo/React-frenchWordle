@@ -1,7 +1,7 @@
 import "./App.css"
 import React, { useState, useEffect } from "react"
 import Grid from "./components/Grid"
-import { getWordOfTheDay, isValidWord } from "./utils/getWordOfTheDay"
+import { getWordOfTheDay, getWordOfYesterday, isValidWord } from "./utils/getWordOfTheDay"
 import { useTimer } from "use-timer"
 import intToTime from "./utils/formatTime"
 import useLocalStorage from "./hooks/localStorage"
@@ -22,13 +22,14 @@ onClose(){
 function App() {
   const [initialState, setInitialState] = useLocalStorage("state", {})
   const wordOfTheDay = getWordOfTheDay()
+  const wordOfyesterday = getWordOfYesterday()
+
   const [guess, setGuess] = useState("")
   const [isInputDisabled, setIsInputDisabled] = useState(true)
   const [isStatsDisabled, setIsStatsDisabled] = useState(true)
   const isGameEnded =
     guess === wordOfTheDay || initialState?.[TODAY]?.grid?.[initialState?.[TODAY]?.grid?.length - 1] === wordOfTheDay
 
-  console.log("refresh")
   useEffect(() => {
     if (isInputDisabled && (!initialState || initialState.grid?.[initialState?.grid?.length - 1] !== wordOfTheDay)) {
       setIsInputDisabled(false)
@@ -114,7 +115,7 @@ function App() {
 
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
-            <h1 className="primary-message">{primaryMessage}</h1>
+            {primaryMessage && <h1 className="primary-message">{primaryMessage}</h1>}
             <h2>{intToTime(time)}</h2>
             <Grid
               state={gridState}
@@ -138,7 +139,9 @@ function App() {
           />
           <input className="hidden-on-mobile btn-primary" type="submit" value="Entrer" />
         </form>
-        <p className="helper-message">{helperMessage}</p>
+        {helperMessage && <p className="helper-message">{helperMessage}</p>}
+
+        <p>Le mot d'hier était "{wordOfyesterday}"</p>
       </header>
     </div>
   )

@@ -10,7 +10,14 @@ function getWordOfTheDay() {
   return wordOfTheDay
 }
 
-function isValidWord(word) {
-  return possibleWords.includes(word)
+function getWordOfYesterday() {
+  const date = dayjs().subtract(1, "day").format("YYYY-MM-DD")
+  var myrng = new seedrandom(date)
+  const wordOfTheDay = filteredWords[Math.round(myrng() * filteredWords.length)]
+  return wordOfTheDay
 }
-export { getWordOfTheDay, isValidWord }
+
+function isValidWord(word) {
+  return possibleWords.includes(word) || filteredWords.includes(word)
+}
+export { getWordOfTheDay, getWordOfYesterday, isValidWord }
