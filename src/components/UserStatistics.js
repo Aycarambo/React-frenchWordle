@@ -5,13 +5,14 @@ import avg from "../utils/avg"
 import intToTime from "../utils/formatTime"
 import SendStats from "./SendStats"
 import useLocalStorage from "../hooks/localStorage"
+import { TODAY } from "../utils/today"
 
-function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
+function UserStatistics({ isGameEnded, onClose, word, time, tryCount, initialState, setInitialState }) {
   const [stats, setStats] = useState([])
   const [endGameStats, setEndGameStats] = useState([])
   const [userName, setUserName] = useLocalStorage("user_name", "")
   const [hasUserPlayed] = useState(!isGameEnded)
-  const [isScoreBoardShown, setIsScoreBoardShown] = useState(!!userName)
+  const [isScoreBoardShown, setIsScoreBoardShown] = useState(!!initialState[TODAY]?.data_sent)
 
   const [playerIndex, setPlayerIndex] = useState(0)
 
@@ -120,6 +121,8 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount }) {
           time={time}
           tryCount={tryCount}
           userName={userName}
+          initialState={initialState}
+          setInitialState={setInitialState}
         />
       )}
       {isScoreBoardShown ? (

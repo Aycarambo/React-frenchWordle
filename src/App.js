@@ -5,20 +5,12 @@ import { getWordOfTheDay, isValidWord } from "./utils/getWordOfTheDay"
 import { useTimer } from "use-timer"
 import intToTime from "./utils/formatTime"
 import useLocalStorage from "./hooks/localStorage"
-import dayjs from "dayjs"
 import UserStatistics from "./components/UserStatistics"
 import clsx from "clsx"
+import { TODAY } from "./utils/today"
 
 const MAX_TRIES = 6
-const TODAY = dayjs().format("YYYY-MM-DD")
 
-/*ajouter une croix sur le modal :
-passer au modal une fonction onClose() depuis l'app
-relier la croix a onClose()
-onClose(){
-  disableModal
-}
-*/
 function App() {
   const [initialState, setInitialState] = useLocalStorage("state", {})
   const wordOfTheDay = getWordOfTheDay()
@@ -109,6 +101,8 @@ function App() {
             word={wordOfTheDay}
             time={time}
             tryCount={MAX_TRIES - triesLeft}
+            initialState={initialState}
+            setInitialState={setInitialState}
           />
         </div>
 
