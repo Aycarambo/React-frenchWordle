@@ -16,5 +16,5 @@ Once you have have guessed the `word of the day` you can compare the number of t
 https://wordle-lucas.netlify.app/
 
 ## TODO:
-- Fix the [player's score not registering every time](https://github.com/Aycarambo/frenchWordle/issues/1)
 - Add an easy way for users to share their score on social media.
+- improve UI
