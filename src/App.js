@@ -1,7 +1,7 @@
 import "./App.css"
 import React, { useState, useEffect } from "react"
 import Grid from "./components/Grid"
-import { getWordOfTheDay, getWordOfYesterday, isValidWord } from "./utils/getWordOfTheDay"
+import { getWordOfTheDay, isValidWord } from "./utils/getWordOfTheDay"
 import { useTimer } from "use-timer"
 import intToTime from "./utils/formatTime"
 import useLocalStorage from "./hooks/localStorage"
@@ -22,7 +22,6 @@ onClose(){
 function App() {
   const [initialState, setInitialState] = useLocalStorage("state", {})
   const wordOfTheDay = getWordOfTheDay()
-  const wordOfyesterday = getWordOfYesterday()
 
   const [guess, setGuess] = useState("")
   const [isInputDisabled, setIsInputDisabled] = useState(true)
@@ -90,7 +89,7 @@ function App() {
     } else if (triesLeft <= 0) {
       setIsInputDisabled(true)
       setIsStatsDisabled(false)
-      setPrimaryMessage("Perdu...")
+      setPrimaryMessage(`Perdu... il fallait deviner "${wordOfTheDay}"`)
       pause() //timer
     }
     // eslint-disable-next-line
@@ -140,8 +139,6 @@ function App() {
           <input className="hidden-on-mobile btn-primary" type="submit" value="Entrer" />
         </form>
         {helperMessage && <p className="helper-message">{helperMessage}</p>}
-
-        <p>Le mot d'hier était "{wordOfyesterday}"</p>
       </header>
     </div>
   )
