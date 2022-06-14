@@ -10,21 +10,27 @@ function Line({ value: guess, maxLength, validate = false, word: answer }) {
   useEffect(() => {
     if (validate) {
       setValidatedGuess(guess)
+      //[wrongPos, null, valid, null, ...]
       let tempWordStatusArray = []
+      //{c:1, b:0, ...}
       const letterOccurencesInAnswer = {}
       const letterOccurencesInGuess = {}
       guess.split("").forEach((letter) => {
-        letterOccurencesInGuess[letter] = (letterOccurencesInGuess[letter] || 0) + 1
+        letterOccurencesInGuess[letter] = letterOccurencesInGuess[letter] + 1 || 1
       })
 
+      //null = not in word
+      //valid = letter is at the right position
       //[null, null, valid, null]
       tempWordStatusArray = answer.split("").map((letter, index) => {
         if (letter === guess[index]) {
+          //if letter is at right position
           letterOccurencesInGuess[letter] -= 1
+          // don't count valid letters occurences in answer
           return "valid"
         }
-        // don't count valid letters occurences
-        letterOccurencesInAnswer[letter] = (letterOccurencesInAnswer[letter] || 0) + 1
+
+        letterOccurencesInAnswer[letter] = letterOccurencesInAnswer[letter] + 1 || 1
         return null
       })
       //[wrongPos, null, valid, null]
