@@ -18,9 +18,9 @@ function App() {
   const [guess, setGuess] = useState("")
   const [isInputDisabled, setIsInputDisabled] = useState(true)
   const [isStatsDisabled, setIsStatsDisabled] = useState(true)
-  const isGameEnded =
+  const hasUserWon =
     guess === wordOfTheDay || initialState?.[TODAY]?.grid?.[initialState?.[TODAY]?.grid?.length - 1] === wordOfTheDay
-
+  const hasUserLost = initialState?.[TODAY]?.grid?.length === MAX_TRIES && !hasUserWon
   useEffect(() => {
     if (isInputDisabled && (!initialState || initialState.grid?.[initialState?.grid?.length - 1] !== wordOfTheDay)) {
       setIsInputDisabled(false)
@@ -73,7 +73,7 @@ function App() {
 
   useEffect(() => {
     setGuess("")
-    if (isGameEnded) {
+    if (hasUserWon) {
       setIsInputDisabled(true)
       setIsStatsDisabled(false)
       setPrimaryMessage("Gagné !")
@@ -96,7 +96,8 @@ function App() {
 
         <div className={clsx({ hidden: isStatsDisabled })}>
           <UserStatistics
-            isGameEnded={isGameEnded}
+            isGameEnded={hasUserWon || hasUserLost}
+            hasUserWon={hasUserWon}
             onClose={closeStatsModal}
             word={wordOfTheDay}
             time={time}

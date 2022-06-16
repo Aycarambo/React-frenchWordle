@@ -13,9 +13,10 @@ function SendStats({ onNameSubmitted, word, time, tryCount, userName, initialSta
 
     setIsInputDisabled(true)
     const sendStats = async () => {
+      const hasUserWon = initialState?.[TODAY]?.grid[initialState?.[TODAY]?.grid?.length - 1] === word
       await supabase
         .from("statistics")
-        .insert([{ user_name: userName, time: time, try_count: tryCount, word: word }])
+        .insert([{ user_name: userName, time: time, try_count: tryCount, word: word, has_won: hasUserWon }])
         .then(setInitialState({ [TODAY]: { ...initialState[TODAY], data_sent: true } }))
     }
     sendStats()

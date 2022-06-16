@@ -7,7 +7,7 @@ import SendStats from "./SendStats"
 import useLocalStorage from "../hooks/localStorage"
 import { TODAY } from "../utils/today"
 
-function UserStatistics({ isGameEnded, onClose, word, time, tryCount, initialState, setInitialState }) {
+function UserStatistics({ isGameEnded, onClose, word, time, tryCount, initialState, setInitialState, hasUserWon }) {
   const [stats, setStats] = useState([])
   const [endGameStats, setEndGameStats] = useState([])
   const [userName, setUserName] = useLocalStorage("user_name", "")
@@ -22,6 +22,7 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount, initialSta
         .from("statistics")
         .select(`*`)
         .eq("word", word)
+        .order("has_won", { ascending: false })
         .order("try_count", { ascending: true })
         .order("time", { ascending: true })
 
@@ -33,6 +34,10 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount, initialSta
 
   useEffect(() => {
     var playerIndex = stats.findIndex((row) => {
+      if (!hasUserWon) {
+        //if user has lost, he should be last in the scoreboard
+        return false
+      }
       return row.try_count > tryCount || (row.try_count === tryCount && row.time >= time)
     })
     if (playerIndex === -1) {
@@ -47,7 +52,8 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount, initialSta
         time,
         word,
         created_at: new Date(),
-        position: playerIndex
+        position: playerIndex,
+        has_won: hasUserWon
       })
     }
     setPlayerIndex(playerIndex)
@@ -68,7 +74,8 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount, initialSta
                 (player.user_name === userName && player.time === time && player.try_count === tryCount)
             })}
           >
-            {player.user_name} : {player.try_count} essais [{intToTime(player.time)}]
+            {`${player.user_name} : `}
+            {player.has_won ? `${player.try_count} essais [${intToTime(player.time)}]` : `n'a pas trouvé`}
           </li>
         )
       })}
@@ -77,17 +84,19 @@ function UserStatistics({ isGameEnded, onClose, word, time, tryCount, initialSta
           {playerIndex > 10 && <li className="li-no-index">...</li>}
           <li
             value={playerIndex + 1}
-            key={endGameStats[playerIndex].id}
+            key={endGameStats[playerIndex - 1]?.id}
             className={clsx({
               "player-row":
-                endGameStats[playerIndex].id === "USER" ||
-                (endGameStats[playerIndex].user_name === userName &&
-                  endGameStats[playerIndex].time === time &&
-                  endGameStats[playerIndex].try_count === tryCount)
+                endGameStats[playerIndex - 1]?.id === "USER" ||
+                (endGameStats[playerIndex - 1]?.user_name === userName &&
+                  endGameStats[playerIndex - 1]?.time === time &&
+                  endGameStats[playerIndex - 1]?.try_count === tryCount)
             })}
           >
-            {endGameStats[playerIndex].user_name} : {endGameStats[playerIndex].try_count} essais [
-            {intToTime(endGameStats[playerIndex].time)}]
+            {`${endGameStats[playerIndex - 1]?.user_name} : `}
+            {endGameStats[playerIndex - 1]?.has_won
+              ? `${endGameStats[playerIndex - 1]?.try_count} essais [${intToTime(endGameStats[playerIndex - 1]?.time)}]`
+              : `n'a pas trouvé`}
           </li>
         </>
       )}
